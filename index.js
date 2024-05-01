@@ -11,7 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/get-framwork-name', async (req, res) => {
     try{
         const { languageName } = req.body;
-        // const result = await main(storageName, fileName, email, schoolName, subject, body, orgName);
         const result = await getFramworkName(languageName);
         if (result?.success) {
             res.json(result);
