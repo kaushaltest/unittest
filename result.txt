@@ -1,0 +1,82 @@
+import { MyFunction } from './myFunction';
+
+describe('MyFunction', () => {
+  let myFunction;
+
+  beforeEach(() => {
+    myFunction = new MyFunction();
+  });
+
+  describe('Functionality', () => {
+    test('should return the sum of two numbers', () => {
+      const result = myFunction.add(2, 3);
+      expect(result).toBe(5);
+    });
+    
+    test('should return the difference of two numbers', () => {
+      const result = myFunction.subtract(5, 3);
+      expect(result).toBe(2);
+    });
+    
+    test('should return true if a number is positive', () => {
+      const result = myFunction.isPositive(10);
+      expect(result).toBeTruthy();
+    });
+    
+    test('should return false if a number is negative', () => {
+      const result = myFunction.isPositive(-5);
+      expect(result).toBeFalsy();
+    });
+  });
+
+  describe('Boundary conditions', () => {
+    test('should handle maximum allowed integer values without overflow', () => {
+      const result = myFunction.add(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+      expect(result).toBe(Number.MAX_SAFE_INTEGER * 2);
+    });
+
+    test('should handle minimum allowed integer values without underflow', () => {
+      const result = myFunction.subtract(Number.MIN_SAFE_INTEGER, Number.MIN_SAFE_INTEGER);
+      expect(result).toBe(0);
+    });
+  });
+
+  describe('Edge cases', () => {
+    test('should handle zero inputs for addition', () => {
+      const result = myFunction.add(0, 0);
+      expect(result).toBe(0);
+    });
+
+    test('should handle zero inputs for subtraction', () => {
+      const result = myFunction.subtract(0, 0);
+      expect(result).toBe(0);
+    });
+
+    test('should handle large number inputs for addition', () => {
+      const result = myFunction.add(10e15, 5e15);
+      expect(result).toBe(15e15);
+    });
+
+    test('should handle large number inputs for subtraction', () => {
+      const result = myFunction.subtract(10e15, 5e15);
+      expect(result).toBe(5e15);
+    });
+  });
+
+  describe('Negative scenarios', () => {
+    test('should return NaN when one or both inputs are not numbers', () => {
+      const result = myFunction.add('10', 5);
+      expect(result).toBeNaN();
+    });
+
+    test('should return NaN when subtracting non-numeric values', () => {
+      const result = myFunction.subtract('5', 3);
+      expect(result).toBeNaN();
+    });
+
+    test('should handle division by zero and return Infinity', () => {
+      const result = myFunction.divide(10, 0);
+      expect(result).toBe(Infinity);
+    });
+  });
+});
